@@ -69,9 +69,10 @@ def ReceiveShortMessage():
         if 1 == answer:
                 answer = 0
                 #print(rec_buff)
-                if 'red' in rec_buff:
+                if 'SIM FULL' in rec_buff:
                         answer = 1
-                        print('Turning LEDS onto RED')
+                        print('ALERT: SIM DETECTED TO BE FULL, DELETING ALL TEXTS REMAINING')
+                        send_at('AT+CMGD=1,1','OK',1)
         else:
                 print('No New text')
                 return False
@@ -116,6 +117,9 @@ def power_down(power_key):
         time.sleep(18)
         print('Good bye')
 
+
+#START UP THE RUNNER
+#Set a crontab for this code using the command "nohup python3 MainController.py"
 power_on(power_key)
 while True:
 
